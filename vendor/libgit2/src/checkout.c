@@ -171,6 +171,10 @@ static bool checkout_is_workdir_modified(
 
 	/* handle "modified" submodule */
 	if (wditem->mode == GIT_FILEMODE_COMMIT) {
+		/* Submodules are not modified by checkout. */
+		if (newitem->mode == GIT_FILEMODE_COMMIT)
+			return false;
+
 		git_submodule *sm;
 		unsigned int sm_status = 0;
 		const git_oid *sm_oid = NULL;
